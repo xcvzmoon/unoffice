@@ -1,0 +1,38 @@
+{
+  "name": "unoffice",
+  "description": "A REST API for processing office documents",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "bunx --bun nitro build",
+    "dev": "bunx --bun nitro dev",
+    "preview": "bunx --bun nitro preview",
+    "start": "bun .output/server/index.mjs",
+    "fmt": "oxfmt",
+    "lint": "oxlint",
+    "prepare": "husky",
+    "release:patch": "changelogen --patch --release && git push --follow-tags",
+    "release:minor": "changelogen --minor --release && git push --follow-tags",
+    "release:major": "changelogen --major --release && git push --follow-tags",
+    "release:dry": "changelogen --dry"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.13",
+    "changelogen": "^0.6.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.2",
+    "nitro": "latest",
+    "oxfmt": "^0.48.0",
+    "oxlint": "^1.63.0",
+    "oxlint-tsgolint": "^0.22.1"
+  },
+  "dependencies": {
+    "consola": "^3.4.2",
+    "zod": "^4.4.3"
+  },
+  "lint-staged": {
+    "*.{js,ts,html,yaml,json,md}": "oxfmt",
+    "*.{js,ts}": "oxlint"
+  },
+  "packageManager": "bun@1.3.13"
+}

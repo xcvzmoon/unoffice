@@ -1,6 +1,6 @@
 services:
   unoffice:
-    image: unoffice
+    image: unoffice:${IMAGE_TAG:-latest}
     container_name: unoffice
     build:
       context: .

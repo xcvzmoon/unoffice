@@ -1,0 +1,12 @@
+services:
+  unoffice:
+    image: unoffice
+    container_name: unoffice
+    build:
+      context: .
+      args:
+        UNOSERVER_VERSION: ${UNOSERVER_VERSION:-3.6}
+    environment:
+      PORT: ${PORT:-3000}
+    ports:
+      - '${PORT:-3000}:${PORT:-3000}'

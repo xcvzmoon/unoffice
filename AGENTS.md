@@ -36,3 +36,9 @@
 - Do not switch naming or type style arbitrarily within the same file.
 - Do not remove correct comments or documentation.
 - For production-sensitive code, prefer reliability over clever abstractions.
+
+## LLMS Links
+
+- Nitro V3: https://nitro.build/llms.txt
+- H3 V2: https://h3.dev/llms.txt
+- Bun: https://bun.sh/llms.txt

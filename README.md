@@ -1,6 +1,7 @@
 # unoffice
 
 [![ci](https://img.shields.io/github/actions/workflow/status/xcvzmoon/unoffice/ci.yaml?branch=main&color=black)](https://github.com/xcvzmoon/unoffice/actions/workflows/ci.yaml)
+[![release](https://img.shields.io/github/v/release/xcvzmoon/unoffice?color=black)](https://github.com/xcvzmoon/unoffice/releases/latest)
 
 unoffice is a Nitro REST API that runs on Bun Runtime for processing office documents: text extraction, metadata generation, document conversion, thumbnail generation, and related workflows.
 

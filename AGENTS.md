@@ -42,3 +42,4 @@
 - Nitro V3: https://nitro.build/llms.txt
 - H3 V2: https://h3.dev/llms.txt
 - Bun: https://bun.sh/llms.txt
+- Effect: https://effect.website/llms.txt

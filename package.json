@@ -36,7 +36,11 @@
     "oxlint-tsgolint": "^0.22.1"
   },
   "dependencies": {
+    "@effect/platform": "^0.96.1",
+    "@effect/platform-bun": "^0.89.0",
     "consola": "^3.4.2",
+    "effect": "^3.21.2",
+    "undms": "^1.5.0",
     "zod": "^4.4.3"
   },
   "lint-staged": {

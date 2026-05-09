@@ -43,3 +43,4 @@
 - H3 V2: https://h3.dev/llms.txt
 - Bun: https://bun.sh/llms.txt
 - Effect: https://effect.website/llms.txt
+- Better Result: https://better-result.dev/llms.txt

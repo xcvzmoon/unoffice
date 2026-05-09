@@ -3,6 +3,11 @@
   "compilerOptions": {
     "paths": {
       "~/*": ["./*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "@effect/language-service"
+      }
+    ]
   }
 }

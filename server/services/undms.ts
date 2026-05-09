@@ -4,12 +4,10 @@ import { Effect } from 'effect';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { extract, type Document, type GroupedDocuments } from 'undms';
-import { getExtension } from '~/server/utils/get-extension';
-import { getMimeType } from '~/server/utils/get-mime-type';
-import { validateExtension } from '~/server/utils/validate-extension';
+import { extract, type GroupedDocuments } from 'undms';
+import { getValidatedExtension } from '~/server/utils/file-type-definitions';
 
-export class DocumentInputError extends Error {
+export class DocumentExtractionError extends Error {
   override name = 'DocumentInputError';
 }
 
@@ -40,10 +38,10 @@ function getExtractWorkerUrl(): URL {
 }
 
 async function toDocument(file: File): Promise<SerializableDocument> {
-  const extension = getExtension(file.name);
+  const validatedExtensionResult = getValidatedExtension(file.name);
 
-  if (!validateExtension(extension)) {
-    throw new DocumentInputError(`Unsupported document extension: ${extension ?? file.name}`);
+  if (validatedExtensionResult.isErr()) {
+    throw new DocumentExtractionError(validatedExtensionResult.error);
   }
 
   const arrayBuffer = await file.arrayBuffer();
@@ -51,9 +49,9 @@ async function toDocument(file: File): Promise<SerializableDocument> {
   return {
     name: file.name,
     size: file.size,
-    type: file.type || getMimeType(extension),
+    type: file.type,
     lastModified: file.lastModified,
-    webkitRelativePath: file.webkitRelativePath || '',
+    webkitRelativePath: file.webkitRelativePath,
     buffer: new Uint8Array(arrayBuffer),
   };
 }
@@ -80,16 +78,15 @@ function mergeGroupedDocuments(groups: Iterable<GroupedDocuments[]>): GroupedDoc
 }
 
 export function extractDocument(request: ExtractDocumentRequest): GroupedDocuments[] {
-  const document: Document = {
-    ...request.document,
-    buffer: Buffer.from(request.document.buffer),
-  };
+  const buffer = Buffer.from(request.document.buffer);
+  const document = { ...request.document, buffer };
   return extract([document]);
 }
 
 export async function extractDocuments(files: File[]): Promise<GroupedDocuments[]> {
   if (files.length === 0) {
-    throw new DocumentInputError('At least one document is required');
+    const message = 'At least one document is required';
+    throw new DocumentExtractionError(message);
   }
 
   const documents = await Promise.all(files.map(async (file) => toDocument(file)));

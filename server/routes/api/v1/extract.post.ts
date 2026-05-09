@@ -1,7 +1,7 @@
 import { defineHandler, HTTPError } from 'nitro';
 import { getValidatedQuery } from 'nitro/h3';
 import { z } from 'zod';
-import { DocumentInputError, extractDocuments } from '~/server/services/undms';
+import { DocumentExtractionError, extractDocuments } from '~/server/services/undms';
 
 const querySchema = z.object({
   grouped: z.coerce.boolean().optional(),
@@ -48,7 +48,7 @@ export default defineHandler(async (event) => {
   try {
     extractedDocuments = await extractDocuments(parsedFormDataResult.data);
   } catch (error) {
-    throw error instanceof DocumentInputError
+    throw error instanceof DocumentExtractionError
       ? createUnprocessableEntityError(error.message)
       : error;
   }

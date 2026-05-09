@@ -9,7 +9,7 @@ The current implementation focuses on text and metadata extraction. Extraction i
 ## Features
 
 - Multipart document upload API
-- Text and metadata extraction grouped by MIME type
+- Text and metadata extraction with optional MIME grouping
 - Bun runtime with Nitro `preset: 'bun'`
 - Effect worker pool backed by Bun workers
 - Docker and Docker Compose support
@@ -111,7 +111,37 @@ curl \
   http://localhost:3000/api/v1/extract
 ```
 
-Successful response:
+By default, the endpoint returns a flat document list:
+
+```json
+[
+  {
+    "name": "example.pdf",
+    "size": 32074,
+    "processingTime": 4.7,
+    "encoding": "utf-8",
+    "content": "Extracted text...",
+    "metadata": {
+      "pdf": {
+        "pageCount": 1
+      }
+    }
+  }
+]
+```
+
+Query parameters:
+
+| Parameter | Values                | Description                               |
+| --------- | --------------------- | ----------------------------------------- |
+| `grouped` | `true`, `false`       | Returns documents grouped by MIME type.   |
+| `output`  | `metadata`, `content` | Returns only the selected document field. |
+
+Grouped response:
+
+```sh
+curl -F "documents=@examples/example.pdf" "http://localhost:3000/api/v1/extract?grouped=true"
+```
 
 ```json
 [
@@ -129,6 +159,45 @@ Successful response:
             "pageCount": 1
           }
         }
+      }
+    ]
+  }
+]
+```
+
+Metadata-only response:
+
+```sh
+curl -F "documents=@examples/example.pdf" "http://localhost:3000/api/v1/extract?output=metadata"
+```
+
+```json
+[
+  {
+    "name": "example.pdf",
+    "metadata": {
+      "pdf": {
+        "pageCount": 1
+      }
+    }
+  }
+]
+```
+
+Content-only grouped response:
+
+```sh
+curl -F "documents=@examples/example.pdf" "http://localhost:3000/api/v1/extract?grouped=true&output=content"
+```
+
+```json
+[
+  {
+    "mimeType": "application/pdf",
+    "documents": [
+      {
+        "name": "example.pdf",
+        "content": "Extracted text..."
       }
     ]
   }
@@ -201,7 +270,7 @@ server/utils/               File extension and MIME helpers
 During `bun run build`, Nitro builds the server output and a build hook bundles worker entrypoints into:
 
 ```text
-.output/server/workers/*.mjs
+.output/server/_workers/*.mjs
 ```
 
 ## Verification

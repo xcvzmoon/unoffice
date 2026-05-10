@@ -2,6 +2,30 @@ import { Result } from 'better-result';
 
 export type Category = 'word' | 'excel' | 'powerpoint' | 'pdf' | 'text' | 'csv' | 'image';
 
+export const SUPPORTED_FILE_EXTENSIONS = [
+  'doc',
+  'docx',
+  'xls',
+  'xlsx',
+  'ppt',
+  'pptx',
+  'pdf',
+  'txt',
+  'csv',
+  'jpg',
+  'jpeg',
+  'png',
+  'gif',
+  'webp',
+  'bmp',
+  'svg',
+  'tiff',
+  'heic',
+  'heif',
+] as const;
+
+export type SupportedFileExtension = (typeof SUPPORTED_FILE_EXTENSIONS)[number];
+
 export const FILE_TYPE_DEFINITIONS = {
   word: {
     extensions: ['doc', 'docx'],
@@ -55,18 +79,36 @@ export const FILE_TYPE_DEFINITIONS = {
 
 export function getExtension(filename: string) {
   const index = filename.lastIndexOf('.');
-  return index > 0 ? filename.slice(index + 1) : '';
+  return index > 0 ? filename.slice(index + 1).toLowerCase() : '';
 }
 
 export function validateExtension(extension: string) {
+  const normalizedExtension = extension.toLowerCase();
+
+  for (const supportedExtension of SUPPORTED_FILE_EXTENSIONS) {
+    if (supportedExtension === normalizedExtension) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+export function getMimeTypeByExtension(extension: string): string | null {
+  const normalizedExtension = extension.toLowerCase();
   const entries = Object.entries(FILE_TYPE_DEFINITIONS);
 
   for (const [_, definition] of entries) {
     const extensions = definition.extensions as readonly string[];
-    return extensions.includes(extension);
+    const mimeTypes = definition.mimeTypes as readonly string[];
+    const index = extensions.indexOf(normalizedExtension);
+
+    if (index !== -1) {
+      return mimeTypes[index] ?? mimeTypes[0];
+    }
   }
 
-  return false;
+  return null;
 }
 
 export function getValidatedExtension(filename: string) {

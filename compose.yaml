@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        UNOSERVER_VERSION: ${UNOSERVER_VERSION:-3.6}
+        UNOSERVER_VERSION: ${UNOSERVER_VERSION:-3.3.2}
     environment:
       PORT: ${PORT:-3000}
     ports:

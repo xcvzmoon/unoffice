@@ -1,6 +1,44 @@
 # Changelog
 
 
+## v0.0.2
+
+[compare changes](https://github.com/xcvzmoon/unoffice/compare/v0.0.1...v0.0.2)
+
+### 🚀 Enhancements
+
+- **api:** Add document conversion route ([e87ece7](https://github.com/xcvzmoon/unoffice/commit/e87ece7))
+- **api:** Add thumbnail generation route ([6ecc948](https://github.com/xcvzmoon/unoffice/commit/6ecc948))
+
+### 🩹 Fixes
+
+- **api:** Start unoserver from Nitro plugin ([7c93df5](https://github.com/xcvzmoon/unoffice/commit/7c93df5))
+- **files:** Centralize supported file extensions ([8f98926](https://github.com/xcvzmoon/unoffice/commit/8f98926))
+
+### 📖 Documentation
+
+- Update extract route response ([0ba397d](https://github.com/xcvzmoon/unoffice/commit/0ba397d))
+- Add release badge ([0e803ab](https://github.com/xcvzmoon/unoffice/commit/0e803ab))
+- Update API usage documentation ([719e039](https://github.com/xcvzmoon/unoffice/commit/719e039))
+
+### 📦 Build
+
+- **docker:** Add LibreOffice and unoserver runtime ([e6feded](https://github.com/xcvzmoon/unoffice/commit/e6feded))
+
+### 🏡 Chore
+
+- **extract:** Add query for handling response shape ([77e1768](https://github.com/xcvzmoon/unoffice/commit/77e1768))
+- Add memory logger utility ([02ba91b](https://github.com/xcvzmoon/unoffice/commit/02ba91b))
+- Add better result ([62fa271](https://github.com/xcvzmoon/unoffice/commit/62fa271))
+- Add effect lsp ([dbc0e98](https://github.com/xcvzmoon/unoffice/commit/dbc0e98))
+- **utils:** Add file type definitions ([33ed3d0](https://github.com/xcvzmoon/unoffice/commit/33ed3d0))
+- **undms:** Cleanup and refactor ([61640a0](https://github.com/xcvzmoon/unoffice/commit/61640a0))
+- **agents:** Add better result llms link ([720cb6b](https://github.com/xcvzmoon/unoffice/commit/720cb6b))
+
+### ❤️ Contributors
+
+- Mon Albert Gamil <mrgamilmonalbert@gmail.com>
+
 ## v0.0.1
 
 

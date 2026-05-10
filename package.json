@@ -1,7 +1,7 @@
 {
   "name": "unoffice",
   "description": "A REST API for processing office documents",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "build": "bunx --bun nitro build",
